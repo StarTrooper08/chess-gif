@@ -17,10 +17,11 @@ jobs:
       - name: python bandit
         run: |
             pip install bandit
-            bandit -r .
+            bandit -ll -ii -r .
 
       - name: Create Bandit Issue
-        uses: octokit/request-action@v2
+        uses: octokit/request-action@v2.1
+        if: always()
         with:
           route: POST /repos/${{ github.repository }}/issues
           headers: |
