@@ -24,11 +24,9 @@ jobs:
         if: always()
         with:
           route: POST /repos/${{ github.repository }}/issues
-          data: |
-            {
-              "title": "Bandit Security Report",
-              "body": "$(cat bandit-report.txt)"
-            }
+          output: | # The | is significant!
+            title: Test check run title
+            summary: A summary of the test check run
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
