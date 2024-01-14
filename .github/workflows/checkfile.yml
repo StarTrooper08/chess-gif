@@ -19,4 +19,16 @@ jobs:
             pip install bandit
             bandit -r .
 
+      - name: Create Bandit Issue
+        uses: octokit/request-action@v2
+        with:
+          route: POST /repos/${{ github.repository }}/issues
+          headers: |
+            Authorization: ${{ secrets.GITHUB_TOKEN }}
+          data: |
+            {
+              "title": "Bandit Security Report",
+              "body": "$(cat bandit-report.txt)"
+            }
+
    
